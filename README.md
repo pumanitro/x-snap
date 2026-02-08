@@ -6,15 +6,15 @@ Capture and preserve evidence snapshots of X/Twitter posts with full-page screen
 
 ### Capture page — paste URLs and submit
 
-![Capture page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/capture.png)
+![Capture page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/capture.png?v=2)
 
 ### Gallery — browse all captured evidence
 
-![Gallery page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/gallery.png)
+![Gallery page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/gallery.png?v=2)
 
 ### Detail — view screenshot, download artifacts, verify hashes
 
-![Detail page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/detail.png)
+![Detail page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/detail.png?v=2)
 
 ## Quick Start (Docker)
 
