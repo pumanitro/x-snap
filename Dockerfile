@@ -1,15 +1,18 @@
-# Stage 1: Build
+# Stage 1: Build + download Chromium
 FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm ci
 
+# Download Chromium browser binary in builder (where playwright is installed)
+RUN npx playwright install chromium
+
 COPY . .
 RUN npx drizzle-kit generate 2>/dev/null || true
 RUN npm run build
 
-# Stage 2: Production (slim image + only Chromium)
+# Stage 2: Production (slim runtime)
 FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 
@@ -27,13 +30,13 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/drizzle ./drizzle
 
-# Copy native modules and playwright that standalone misses
+# Copy native/external modules that standalone misses
 COPY --from=builder /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
 COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
 COPY --from=builder /app/node_modules/playwright-core ./node_modules/playwright-core
 
-# Install Chromium browser binary via Playwright
-RUN npx playwright install chromium
+# Copy Chromium browser binary from builder
+COPY --from=builder /root/.cache/ms-playwright /root/.cache/ms-playwright
 
 RUN mkdir -p /data/x-snap
 
