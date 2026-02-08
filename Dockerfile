@@ -27,8 +27,10 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/drizzle ./drizzle
 
-# Copy native modules that standalone misses
+# Copy native modules and playwright that standalone misses
 COPY --from=builder /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
+COPY --from=builder /app/node_modules/playwright ./node_modules/playwright
+COPY --from=builder /app/node_modules/playwright-core ./node_modules/playwright-core
 
 # Install Chromium browser binary via Playwright
 RUN npx playwright install chromium
