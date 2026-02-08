@@ -141,6 +141,11 @@ export async function captureUrl(
     });
 
     // Capture rendered HTML (full DOM including dynamically loaded content)
+    // Strip <script> (already executed, not needed) and <noscript> (fallback
+    // that shows "JavaScript is not available" when served in a sandboxed iframe)
+    await page.evaluate(() => {
+      document.querySelectorAll("script, noscript").forEach((el) => el.remove());
+    });
     const htmlPath = path.join(artifactDir, "page.html");
     const htmlContent = await page.content();
     fs.writeFileSync(htmlPath, htmlContent, "utf-8");
