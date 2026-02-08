@@ -1,6 +1,20 @@
 # X-Snap - Evidence Snapshot Capture
 
-Capture and preserve evidence snapshots of X/Twitter posts with full-page screenshots, PDFs, and cryptographic hashes.
+Capture and preserve evidence snapshots of X/Twitter posts with full-page screenshots, PDFs, rendered HTML pages, and cryptographic hashes.
+
+**Live demo:** [x-snap-production.up.railway.app](https://x-snap-production.up.railway.app/)
+
+### Capture page — paste URLs and submit
+
+![Capture page](docs/screenshots/screenshot-capture-page.png)
+
+### Gallery — browse all captured evidence
+
+![Gallery page](docs/screenshots/screenshot-gallery-page.png)
+
+### Detail — view screenshot, download artifacts, verify hashes
+
+![Detail page](docs/screenshots/screenshot-detail-page.png)
 
 ## Quick Start (Docker)
 
