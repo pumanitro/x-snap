@@ -4,17 +4,14 @@ Capture and preserve evidence snapshots of X/Twitter posts with full-page screen
 
 **Live demo:** [x-snap-production.up.railway.app](https://x-snap-production.up.railway.app/)
 
-### Capture page — paste URLs and submit
-
-![Capture page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/capture.png?v=2)
-
-### Gallery — browse all captured evidence
-
-![Gallery page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/gallery.png?v=2)
-
-### Detail — view screenshot, download artifacts, verify hashes
-
-![Detail page](https://raw.githubusercontent.com/pumanitro/x-snap/main/docs/screenshots/detail.png?v=2)
+<table>
+<tr><td><strong>Capture page</strong> — paste URLs and submit</td></tr>
+<tr><td><img src="docs/screenshots/capture.png" alt="Capture page" /></td></tr>
+<tr><td><strong>Gallery</strong> — browse all captured evidence</td></tr>
+<tr><td><img src="docs/screenshots/gallery.png" alt="Gallery page" /></td></tr>
+<tr><td><strong>Detail</strong> — view screenshot, download artifacts, verify hashes</td></tr>
+<tr><td><img src="docs/screenshots/detail.png" alt="Detail page" /></td></tr>
+</table>
 
 ## Quick Start (Docker)
 
