@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copy standalone Next.js build
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/drizzle ./drizzle
 
 # Copy native modules that standalone misses
