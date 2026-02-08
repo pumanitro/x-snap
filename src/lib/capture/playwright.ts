@@ -16,10 +16,12 @@ const USER_AGENT =
 export interface CaptureResult {
   screenshotPath: string;
   pdfPath: string;
+  htmlPath: string;
   metadataPath: string;
   hashesPath: string;
   screenshotHash: string;
   pdfHash: string;
+  htmlHash: string;
   metadataHash: string;
 }
 
@@ -138,6 +140,11 @@ export async function captureUrl(
       printBackground: true,
     });
 
+    // Capture rendered HTML (full DOM including dynamically loaded content)
+    const htmlPath = path.join(artifactDir, "page.html");
+    const htmlContent = await page.content();
+    fs.writeFileSync(htmlPath, htmlContent, "utf-8");
+
     // Build metadata
     const metadata: CaptureMetadata = {
       url,
@@ -153,15 +160,17 @@ export async function captureUrl(
     fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
 
     // Compute hashes
-    const [screenshotHash, pdfHash, metadataHash] = await Promise.all([
+    const [screenshotHash, pdfHash, htmlHash, metadataHash] = await Promise.all([
       hashFile(screenshotPath),
       hashFile(pdfPath),
+      hashFile(htmlPath),
       hashFile(metadataPath),
     ]);
 
     const hashes = {
       "screenshot.png": screenshotHash,
       "page.pdf": pdfHash,
+      "page.html": htmlHash,
       "metadata.json": metadataHash,
     };
 
@@ -171,10 +180,12 @@ export async function captureUrl(
     return {
       screenshotPath,
       pdfPath,
+      htmlPath,
       metadataPath,
       hashesPath,
       screenshotHash,
       pdfHash,
+      htmlHash,
       metadataHash,
     };
   } catch (error) {

@@ -7,6 +7,7 @@ const CONTENT_TYPES: Record<string, string> = {
   ".png": "image/png",
   ".pdf": "application/pdf",
   ".json": "application/json",
+  ".html": "text/html",
   ".txt": "text/plain",
 };
 

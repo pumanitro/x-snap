@@ -32,8 +32,10 @@ alwaysApply: false
 - IPs, localhost, private ranges rejected in `src/lib/url.ts`
 
 ## Artifacts per capture (stored in `{DATA_DIR}/{captureId}/`)
-- `screenshot.png`, `page.pdf`, `metadata.json`, `hashes.json`
+- `screenshot.png`, `page.pdf`, `page.html`, `metadata.json`, `hashes.json`
+- `page.html` is the rendered DOM captured via `page.content()` - serves as interactive archived page
 - On failure: `error-screenshot.png`, `error-metadata.json`
+- Detail page uses `CaptureViewer` client component with Webpage/Screenshot tabs; HTML shown in sandboxed iframe
 
 ## Rate Limiting
 - In-memory sliding window, configurable via `XSNAP_RATE_LIMIT` env var

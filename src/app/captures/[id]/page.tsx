@@ -18,10 +18,12 @@ import {
   Download,
   ExternalLink,
   FileText,
+  Globe,
   Hash,
   Image as ImageIcon,
   Info,
 } from "lucide-react";
+import { CaptureViewer } from "@/components/capture-viewer";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -87,6 +89,10 @@ export default async function CaptureDetailPage({
     capture.status === "success" &&
     fs.existsSync(path.join(artifactDir, "page.pdf"));
 
+  const hasHtml =
+    capture.status === "success" &&
+    fs.existsSync(path.join(artifactDir, "page.html"));
+
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       <div className="flex items-center gap-4">
@@ -123,27 +129,13 @@ export default async function CaptureDetailPage({
         </div>
       )}
 
-      {/* Screenshot preview */}
-      {hasScreenshot && (
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <ImageIcon className="h-4 w-4" />
-              Screenshot
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="border rounded-lg overflow-hidden bg-muted">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`/api/artifacts/${capture.id}/screenshot.png`}
-                alt={`Full-page screenshot of ${capture.url}`}
-                className="w-full h-auto"
-              />
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {/* Screenshot / Page viewer */}
+      <CaptureViewer
+        captureId={capture.id}
+        captureUrl={capture.url}
+        hasScreenshot={hasScreenshot}
+        hasHtml={hasHtml}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Downloads */}
@@ -173,6 +165,16 @@ export default async function CaptureDetailPage({
               >
                 <FileText className="h-4 w-4" />
                 page.pdf
+              </a>
+            )}
+            {hasHtml && (
+              <a
+                href={`/api/artifacts/${capture.id}/page.html`}
+                download={`page-${capture.id}.html`}
+                className="flex items-center gap-2 text-sm text-primary hover:underline"
+              >
+                <Globe className="h-4 w-4" />
+                page.html
               </a>
             )}
             {metadata && (
