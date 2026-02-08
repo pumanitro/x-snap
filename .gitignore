@@ -31,10 +31,19 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+.env
+.env.local
+.env.production
 
 # vercel
 .vercel
+
+# x-snap data directory
+/data/
+
+# drizzle
+drizzle/*.db
+drizzle/*.db-journal
 
 # typescript
 *.tsbuildinfo

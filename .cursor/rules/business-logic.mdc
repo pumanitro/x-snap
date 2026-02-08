@@ -1,0 +1,42 @@
+---
+description: X-Snap business logic and architecture essentials
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+alwaysApply: false
+---
+
+# X-Snap Business Logic
+
+## Architecture
+- Single Next.js process with in-process background worker via `src/instrumentation.ts`
+- SQLite (Drizzle ORM) for metadata, filesystem for artifacts (PNG, PDF, JSON)
+- Worker starts on server boot, polls DB every 2s for queued captures
+
+## Key Paths
+- `src/lib/worker.ts` - Background job processor (poll, concurrency, retries)
+- `src/lib/capture/playwright.ts` - Playwright capture logic (screenshot, PDF, metadata, hashes)
+- `src/lib/url.ts` - URL parsing, validation, normalization, SSRF protection
+- `src/lib/db/schema.ts` - Drizzle schema (captures table)
+- `src/app/actions/captures.ts` - Server Action for creating capture jobs
+- `src/app/api/artifacts/[id]/[...path]/route.ts` - Serves stored files with path traversal protection
+
+## Capture Flow
+1. User submits URLs → Server Action validates, normalizes, dedupes → inserts as `queued` in DB
+2. Worker picks up queued jobs → marks `running` → Playwright captures → saves artifacts → marks `success`/`failed`
+3. Failed jobs retry with exponential backoff (5s, 20s, 80s), max 3 retries
+4. Stale `running` jobs recovered to `queued` on worker startup
+
+## SSRF Protection
+- Only `x.com` / `twitter.com` domains allowed
+- IPs, localhost, private ranges rejected in `src/lib/url.ts`
+
+## Artifacts per capture (stored in `{DATA_DIR}/{captureId}/`)
+- `screenshot.png`, `page.pdf`, `metadata.json`, `hashes.json`
+- On failure: `error-screenshot.png`, `error-metadata.json`
+
+## Rate Limiting
+- In-memory sliding window, configurable via `XSNAP_RATE_LIMIT` env var
+
+## DB Auto-Migration
+- Drizzle migrations run automatically on first DB connection in `src/lib/db/index.ts`

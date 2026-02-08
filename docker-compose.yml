@@ -1,0 +1,18 @@
+services:
+  xsnap:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - xsnap-data:/data
+    environment:
+      - XSNAP_DATA_DIR=/data/x-snap
+      - XSNAP_CONCURRENCY=2
+      - XSNAP_MAX_RETRIES=3
+      - XSNAP_AUTO_SCROLL=true
+      # Optional: mount your X auth storage state
+      # - XSNAP_STORAGE_STATE_PATH=/data/storage-state.json
+    restart: unless-stopped
+
+volumes:
+  xsnap-data:
