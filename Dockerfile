@@ -42,9 +42,8 @@ RUN mkdir -p /data/x-snap
 
 ENV NODE_ENV=production
 ENV XSNAP_DATA_DIR=/data/x-snap
-ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["node", "server.js"]
