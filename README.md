@@ -6,15 +6,15 @@ Capture and preserve evidence snapshots of X/Twitter posts with full-page screen
 
 ### Capture page — paste URLs and submit
 
-![Capture page](docs/screenshots/screenshot-capture-page.png)
+![Capture page](docs/screenshots/capture.png)
 
 ### Gallery — browse all captured evidence
 
-![Gallery page](docs/screenshots/screenshot-gallery-page.png)
+![Gallery page](docs/screenshots/gallery.png)
 
 ### Detail — view screenshot, download artifacts, verify hashes
 
-![Detail page](docs/screenshots/screenshot-detail-page.png)
+![Detail page](docs/screenshots/detail.png)
 
 ## Quick Start (Docker)
 
