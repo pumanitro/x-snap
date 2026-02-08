@@ -44,6 +44,9 @@ ENV NODE_ENV=production
 ENV XSNAP_DATA_DIR=/data/x-snap
 ENV HOSTNAME=0.0.0.0
 
+# Copy startup wrapper for debugging
+COPY start.js ./start.js
+
 EXPOSE 8080
 
-CMD ["node", "server.js"]
+CMD ["node", "start.js"]
